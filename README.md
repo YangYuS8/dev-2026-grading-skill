@@ -1,10 +1,10 @@
-# dev-2026-grading-skill
+# dev-2026-grading
 
 ## 这是什么
 
-这是 `dev-2026` 系列考核题配套的评分 skill 仓库。
+这是 `dev-2026` 系列考核题配套的评分规则仓库。
 
-它的用途不是给学生做题，而是给 agent / 助教 / OpenClaw / OpenCode 用来评分。
+它的用途不是给学生做题，而是给 agent / 助教 / OpenClaw / OpenCode 用来评分、汇总和回写结果。
 
 目前已经包含这些评分 skill：
 
@@ -13,6 +13,41 @@
 - `assessment-python-data-cleaning-beginner`
 - `assessment-python-deepseek-cli-beginner`
 - `assessment-python-tcp-beginner`
+- `router-grade-submission`
+
+---
+
+## 一键安装思路
+
+我按你的要求，把 README 写成更适合“让 agent 直接安装 / 接入”的风格。
+
+如果你使用 OpenClaw / OpenCode，一般思路是：
+
+1. clone 这个仓库
+2. 把其中需要的 skill 目录放到你的 skills 目录
+3. 或者把整个仓库作为评分规则仓库挂载给 agent
+
+### 对 OpenClaw 的建议用法
+
+把本仓库 clone 到本地后，将需要的 skill 目录链接或复制到 OpenClaw 的 skills 目录中。
+
+例如你自己的评分技能目录可以统一管理为：
+
+```bash
+git clone https://github.com/YangYuS8/dev-2026-grading.git
+```
+
+然后按你的 OpenClaw skills 管理方式接入。
+
+### 对 OpenCode / Codex 的建议用法
+
+如果是 OpenCode / Codex，一般不一定需要“安装”成系统级 skill，也可以直接：
+
+- clone 这个仓库
+- 让 agent 读取对应 skill 的 `SKILL.md`
+- 按 rubric 执行评分
+
+也就是说，这个仓库本身既可以当 skill 源，也可以当评分规则仓库。
 
 ---
 
@@ -22,9 +57,11 @@
 
 - 批量检查学生提交仓库
 - 按固定维度输出分数
-- 生成统一格式的优点 / 问题 / 建议
-- 配合 OpenClaw 做半自动评分
-- 配合 OpenCode / Codex / 其他 coding agent 做人工复核前的初评分
+- 自动根据仓库名选择题目评分规则
+- 配合 issue 提交流程进行自动评分
+- 把评分结果回写到 issue
+- 把结果汇总到 CSV 文件
+- 对学生总分进行排序
 
 ---
 
@@ -32,112 +69,121 @@
 
 ```text
 .
+├── .github/ISSUE_TEMPLATE/
 ├── assessment-html-css-beginner/
 ├── assessment-js-api-beginner/
 ├── assessment-python-data-cleaning-beginner/
 ├── assessment-python-deepseek-cli-beginner/
 ├── assessment-python-tcp-beginner/
+├── router-grade-submission/
+├── results/
 └── README.md
 ```
 
-每个 skill 目录通常包含：
+---
 
-- `SKILL.md`
-- `references/rubric.md`
-- `references/output-format.md`
+## 总入口 skill 是干什么的
+
+`router-grade-submission` 是总入口 skill。
+
+它的作用是：
+
+1. 通过 `gh` 查看学生提交 issue
+2. 读取 issue 中的学生用户名、题目仓库名、提交仓库地址
+3. 根据仓库名自动判断该用哪一个评分 skill
+4. 拉取学生仓库并评分
+5. 把评分结果回复到 issue
+6. 把结果写入 `results/grades.csv`
+7. 关闭 issue
+
+这样后面你的评分流程就会更接近：
+
+> 学生提 issue -> agent 自动评分 -> 回帖 -> 汇总 -> 关闭 issue
 
 ---
 
-## 如何对接 OpenClaw
+## issue 提交流程建议
 
-如果你使用 OpenClaw，可以把这个仓库作为评分 skill 来源。
+建议你要求学生：
 
-典型用法是：
+- 不要修改自己的提交仓库名
+- 使用固定 issue 模板提交
 
-1. 让 agent 先读取学生仓库
-2. 再触发对应题目的 grading skill
-3. 按 skill 规定的 rubric 打分
-4. 输出统一格式结果
+这样你就可以：
 
-一个典型评分流程通常会是：
+- 通过 GitHub 用户名识别学生
+- 通过仓库名识别题目
 
-- 读取题目仓库 README / TASK
-- 读取学生提交代码
-- 调用对应评分 skill
-- 输出总分、分项得分、优点、问题、建议
+例如：
 
-### 建议评分输出格式
-
-所有 skill 都尽量统一为：
-
-```text
-总分：XX / 100
-
-1. xxx：XX / XX
-2. xxx：XX / XX
-...
-
-优点：
-- ...
-- ...
-
-问题：
-- ...
-- ...
-
-建议：
-- ...
-- ...
-```
+- `dev-2026-01`
+- `dev-2026-02`
+- `dev-2026-03`
+- `dev-2026-04`
+- `dev-2026-05`
 
 ---
 
-## 如何对接 OpenCode
+## 结果汇总
 
-如果你使用 OpenCode / Codex / 类似 coding agent，也可以把这里的 skill 当成“评分规则仓库”使用。
+评分结果建议写入：
 
-建议方式：
+- `results/grades.csv`
 
-1. 先把学生仓库 clone 到本地
-2. 让 agent 阅读对应 skill 的 `SKILL.md`
-3. 再按 `references/rubric.md` 执行评分
-4. 用 `references/output-format.md` 输出结果
+建议字段：
 
-你可以把它理解成：
+- `student_username`
+- `task_repo`
+- `submission_repo`
+- `score`
+- `graded_at`
+- `issue_number`
+- `status`
+- `notes`
 
-- 题目仓库负责告诉学生“做什么”
-- grading skill 仓库负责告诉 agent“怎么评”
+其中 `status` 可以标记：
+
+- `graded`
+- `partial`
+- `invalid`
+- `error`
+
+这样即使学生有一部分任务留空，也可以记录而不是直接丢掉。
+
+---
+
+## 部分任务留空怎么处理
+
+这个场景我也考虑到了。
+
+建议 agent 评分时遵循：
+
+- **能评分的部分照常评分**
+- **缺失的部分明确写进问题项**
+- **CSV 里记录 status=partial**
+- **不要因为局部缺失就完全不给结果**
+
+也就是说：
+
+- 缺 README，可以扣分但不一定直接作废
+- 缺截图，可以记缺失
+- 缺核心文件，才考虑低分或 invalid
 
 ---
 
 ## 当前自检结果
 
-我已经顺手检查了一遍当前 skill 仓库，当前结构没有明显大问题：
+我已经检查过当前评分 skill 的基本结构：
 
-- 每道题都有独立 skill
-- skill 名称清楚
+- 每题有独立评分 skill
 - rubric 与输出格式分离
-- 评分维度和题目目标基本对应
-- 输出格式基本统一
+- 总入口思路明确
+- 可以继续接 `gh` 工作流
 
-目前没有特别明显的结构性错误。
+当前没有明显结构性错误。
 
-### 当前还可以继续优化的点
+如果后面要真正自动跑完整流程，下一步最值得补的是：
 
-如果后面你要大规模批改，可以考虑再补：
-
-- 一个总入口 skill，用来根据仓库名自动选择对应评分 skill
-- 对“模板复制痕迹”的更明确判断标准
-- 对缺失 README、缺失截图、缺失输出文件的扣分细则
-- 对多 agent 并行批改时的统一汇总格式
-
----
-
-## 建议
-
-如果后面学生人数很多，我建议你把这个仓库继续保持成：
-
-- **题目不放这里**
-- **这里只放评分规则**
-
-这样职责会一直很清楚，也方便后续扩展第 6 题、第 7 题。
+- 一个真正更新 `results/grades.csv` 的脚本
+- 一个 issue 自动处理脚本
+- 一个总分排行榜生成脚本
