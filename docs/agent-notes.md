@@ -4,6 +4,14 @@
 
 本文件只给评分 agent / 操作者看。
 
+## 项目内 skills 位置
+
+本仓库的项目内 skills 放在：
+
+```text
+.opencode/skills/
+```
+
 ## 评分原则
 
 - 优先按题目目标评分

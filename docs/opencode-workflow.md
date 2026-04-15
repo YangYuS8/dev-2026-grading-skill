@@ -2,12 +2,28 @@
 
 本仓库专门面向 OpenCode。
 
+## 关键点
+
+OpenCode 项目内 skills 通常应放在：
+
+```text
+.opencode/skills/
+```
+
+所以本仓库的评分 skills 已经放到：
+
+```text
+.opencode/skills/
+```
+
+如果你在仓库根目录直接启动 `opencode`，它更容易按项目内 skill 的方式识别这些技能。
+
 ## 推荐流程
 
 1. clone 本仓库
-2. 进入仓库
+2. 进入仓库根目录
 3. 启动 `opencode`
-4. OpenCode 自动识别仓库中的 skills
+4. OpenCode 读取 `.opencode/skills/`
 5. 执行：
 
 ```text
@@ -33,15 +49,15 @@ grade issue <issue编号>
 
 ## 主入口
 
-- `grade-submission`
+- `.opencode/skills/grade-submission`
 
 ## 单题评分 skills
 
-- `assessment-html-css-beginner`
-- `assessment-js-api-beginner`
-- `assessment-python-data-cleaning-beginner`
-- `assessment-python-deepseek-cli-beginner`
-- `assessment-python-tcp-beginner`
+- `.opencode/skills/assessment-html-css-beginner`
+- `.opencode/skills/assessment-js-api-beginner`
+- `.opencode/skills/assessment-python-data-cleaning-beginner`
+- `.opencode/skills/assessment-python-deepseek-cli-beginner`
+- `.opencode/skills/assessment-python-tcp-beginner`
 
 ## 辅助脚本
 
