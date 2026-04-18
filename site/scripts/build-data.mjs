@@ -7,8 +7,7 @@ const jsonPath = path.join(process.cwd(), 'docs', 'public', 'leaderboard.json');
 const mdPath = path.join(process.cwd(), 'docs', 'leaderboard.md');
 
 const parseCsv = (content) => {
-  const lines = content.trim().split(/?
-/);
+  const lines = content.trim().split(/\r?\n/);
   const headers = lines.shift().split(',');
   return lines.map((line) => {
     const values = [];
@@ -32,7 +31,9 @@ const parseCsv = (content) => {
     }
     values.push(current);
     const obj = {};
-    headers.forEach((h, idx) => (obj[h] = values[idx] || ''));
+    headers.forEach((h, idx) => {
+      obj[h] = values[idx] || '';
+    });
     return obj;
   });
 };
@@ -60,12 +61,10 @@ const podium = top3.length
           `<p>总分：${item.total_score}</p>`,
           `<p>已评分题数：${item.graded_count}</p>`,
           '</div>'
-        ].join('
-');
+        ].join('\n');
       }),
       '</div>'
-    ].join('
-')
+    ].join('\n')
   : '<p>当前还没有排行榜数据。</p>';
 
 const tableLines = [
@@ -77,7 +76,9 @@ if (data.length === 0) {
   tableLines.push('| - | 暂无数据 | - | - | - | - | - | - | - |');
 } else {
   data.forEach((item, idx) => {
-    tableLines.push(`| ${idx + 1} | ${item.student_username} | ${item.task_01} | ${item.task_02} | ${item.task_03} | ${item.task_04} | ${item.task_05} | ${item.total_score} | ${item.graded_count} |`);
+    tableLines.push(
+      `| ${idx + 1} | ${item.student_username} | ${item.task_01} | ${item.task_02} | ${item.task_03} | ${item.task_04} | ${item.task_05} | ${item.total_score} | ${item.graded_count} |`
+    );
   });
 }
 
@@ -95,10 +96,8 @@ const md = [
   '</div>',
   '',
   '<p class="leaderboard-note">页面数据构建时间由 GitHub Actions 在构建时决定。</p>'
-].join('
-');
+].join('\n');
 
-fs.writeFileSync(mdPath, md + '
-', 'utf8');
+fs.writeFileSync(mdPath, md + '\n', 'utf8');
 console.log('Generated:', jsonPath);
 console.log('Generated:', mdPath);
