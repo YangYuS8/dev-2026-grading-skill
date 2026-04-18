@@ -7,8 +7,7 @@ const jsonPath = path.join(process.cwd(), 'docs', 'public', 'leaderboard.json');
 const mdPath = path.join(process.cwd(), 'docs', 'index.md');
 
 const parseCsv = (content) => {
-  const lines = content.trim().split(/?
-/);
+  const lines = content.trim().split(/\r?\n/);
   const headers = lines.shift().split(',');
   return lines.map((line) => {
     const values = [];
@@ -67,10 +66,8 @@ const md = [
   ...tableLines,
   '',
   '> 页面数据构建时间由 GitHub Actions 在构建时决定。'
-].join('
-');
+].join('\n');
 
-fs.writeFileSync(mdPath, md + '
-', 'utf8');
+fs.writeFileSync(mdPath, md + '\n', 'utf8');
 console.log('Generated:', jsonPath);
 console.log('Generated:', mdPath);
