@@ -4,7 +4,7 @@ import path from 'path';
 const repoRoot = path.resolve(process.cwd(), '..');
 const csvPath = path.join(repoRoot, 'results', 'leaderboard.csv');
 const jsonPath = path.join(process.cwd(), 'docs', 'public', 'leaderboard.json');
-const mdPath = path.join(process.cwd(), 'docs', 'index.md');
+const mdPath = path.join(process.cwd(), 'docs', 'leaderboard.md');
 
 const parseCsv = (content) => {
   const lines = content.trim().split(/\r?\n/);
@@ -59,7 +59,7 @@ if (data.length === 0) {
 }
 
 const md = [
-  '# dev-2026 排行榜',
+  '# 排行榜',
   '',
   '这个页面会根据仓库中的 `results/leaderboard.csv` 自动生成。',
   '',
