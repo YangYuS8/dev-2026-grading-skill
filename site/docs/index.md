@@ -1,56 +1,23 @@
-# dev-2026 排行榜
+---
+layout: home
 
-这个页面会根据仓库中的 `results/leaderboard.csv` 自动生成。
+hero:
+  name: dev-2026 排行榜
+  text: 自动根据评分仓库生成的考核结果页面
+  tagline: 从 results/leaderboard.csv 构建，适合公开查看当前排名与分数分布
+  actions:
+    - theme: brand
+      text: 查看排行榜
+      link: /leaderboard
+    - theme: alt
+      text: 查看评分仓库
+      link: https://github.com/YangYuS8/dev-2026-grading
 
-<div id="leaderboard-app">加载中...</div>
-
-<script type="module">
-async function loadLeaderboard() {
-  const root = document.getElementById('leaderboard-app')
-  try {
-    const res = await fetch('/dev-2026-grading/leaderboard.json')
-    const data = await res.json()
-
-    if (!Array.isArray(data) || data.length === 0) {
-      root.innerHTML = '<p>当前还没有排行榜数据。</p>'
-      return
-    }
-
-    const rows = data.map((item, idx) => `
-      <tr>
-        <td>${idx + 1}</td>
-        <td>${item.student_username}</td>
-        <td>${item.task_01}</td>
-        <td>${item.task_02}</td>
-        <td>${item.task_03}</td>
-        <td>${item.task_04}</td>
-        <td>${item.task_05}</td>
-        <td><strong>${item.total_score}</strong></td>
-        <td>${item.graded_count}</td>
-      </tr>
-    `).join('')
-
-    root.innerHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th>排名</th>
-            <th>学生</th>
-            <th>01</th>
-            <th>02</th>
-            <th>03</th>
-            <th>04</th>
-            <th>05</th>
-            <th>总分</th>
-            <th>已评分题数</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `
-  } catch (err) {
-    root.innerHTML = `<p>加载排行榜失败：${err.message}</p>`
-  }
-}
-loadLeaderboard()
-</script>
+features:
+  - title: 自动更新
+    details: 当评分仓库中的 leaderboard.csv 更新后，GitHub Actions 会自动重新构建并部署页面。
+  - title: 结构简单
+    details: 使用 VitePress 作为静态站点生成器，只展示必要信息，方便维护。
+  - title: 适合公开展示
+    details: 结果来自仓库中的 CSV 文件，便于后续继续接入更多题目和排行榜统计。
+---
