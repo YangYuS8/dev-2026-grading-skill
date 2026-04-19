@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: dev-2026 开发方向考核
-  text: 提交说明、题目入口与排行榜
-  tagline: 本页面用于说明题目结构、提交方式与当前排行榜入口
+  name: dev-2026
+  text: 开发方向考核
+  tagline: 提交说明、题目入口与排行榜
   actions:
     - theme: brand
       text: 查看排行榜
