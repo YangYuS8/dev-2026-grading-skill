@@ -1,3 +1,6 @@
 student_username,task_repo,submission_repo,score,graded_at,issue_number,status,notes
 ttc0648,dev-2026-01,https://github.com/ttc0648/dev-2026-01.git,96,2026-04-18T15:43:36Z,2,graded,完整提交；结构、布局、响应式完成度高；建议清理模板文件并精简不必要 ARIA role。
 ding070125,dev-2026-01,https://github.com/ding070125/dsj,73,2026-04-18T15:51:39Z,3,graded,提交完整但较基础；README 基本沿用模板且与实现不完全一致；响应式和 HTML 细节还有提升空间。
+Aelume,dev-2026-01,https://github.com/Aelume/dev-2026-01,96,2026-04-19T04:55:42Z,4,graded,提交完整且质量较高；响应式处理细致；少量无障碍状态和内联样式细节可继续优化。
+Aelume,dev-2026-02,https://github.com/Aelume/dev-2026-02,95,2026-04-19T04:58:09Z,5,graded,核心 API 交互流程完整；代码结构清晰，README 说明准确；数据更新方式和渲染细节仍可继续优化。
+ttc0648,dev-2026-02,https://github.com/ttc0648/dev-2026-02.git,93,2026-04-19T05:01:44Z,6,graded,核心 API 交互流程完整；筛选映射处理合理；消息区复用、README 截图路径和模板痕迹仍可优化。
