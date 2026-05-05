@@ -38,3 +38,13 @@ peichangning,dev-2026-01,https://github.com/peichangning/dev-2026-01.git,83,2026
 yunyuaniwwhm,dev-2026-03,https://github.com/yunyuaniwwhm/dev-2026-03,93,2026-04-27T01:12:34Z,38,graded,源码已实现完整清洗流程并提交导出结果与统计文件；当前评测环境缺少 pip/pandas，未能现场复跑，评分结合源码与输出结果完成。
 JINfan-1,dev-2026-02,https://github.com/JINfan-1/-2,95,2026-04-27T01:16:51Z,39,graded,仓库实际内容为 dev-2026-02，接口 GET/POST 已验证可用；核心交互流程完整，少量消息提示覆盖与模板文件残留可继续优化。
 liu070504,dev-2026-01,https://github.com/liu070504/task-manager,82,2026-04-27T01:23:20Z,40,graded,页面结构与样式完成度较好，响应式基础到位；但 README 缺失，源码位于 task/ 子目录，且 main.css 开头的全局重置选择器写法有误。
+peichangning,dev-2026-02,https://github.com/peichangning/dev-2026-02.git,88,2026-05-05T21:05:16Z,41,partial,核心 JS API 流程已实现并可评分，但作业实际内容放在 peichuangning/ 子目录，仓库根目录 README 基本为空，影响直接验收。
+peichangning,dev-2026-03,https://github.com/peichangning/dev-2026-03.git,86,2026-05-05T21:10:20Z,42,partial,核心数据清洗逻辑已实现，但作业实际内容放在 dev-2026-03/ 子目录，fresh clone 缺少 data/online_retail_II.xlsx 且未提交输出结果，影响直接复核。
+superwuabc,dev-2026-03,https://github.com/superwuabc/dev-2026-03,95,2026-05-05T21:14:24Z,44,graded,清洗流程已现场运行验证并成功产出 CSV、日志与 JSON；小扣分点是 download_data.py 的数据路径与 main.py 不一致，且 README 对无效日期处理与实际代码有细微偏差。
+peichangning,dev-2026-04,https://github.com/peichangning/dev-2026-04.git,85,2026-05-05T21:18:19Z,45,partial,核心 DeepSeek CLI 逻辑已实现，但作业内容放在 dev-2026-04-main/ 子目录，根目录 README 为空，且 README 提到的 .env.example 未提交。现场已验证无 Key 启动检查，真实 API 调用受当前评测环境代理依赖限制。
+peichangning,dev-2026-05,https://github.com/peichangning/dev-2026-05.git,88,2026-05-05T21:23:57Z,46,partial,核心 TCP 协议与 live socket 通信已验证可用，但作业内容放在 dev-2026-05-PCN/ 子目录，根目录 README/TASK 不完整，且 README/report 声称 pytest 通过而仓库中未提交 tests 目录。
+peichangning,dev-2026-01,https://github.com/peichangning/dev-2026-01-new.git,84,2026-05-05T21:28:17Z,47,partial,页面实现基本完整，但实际作业位于 dev-2026-01/dev-2026-01/ 深层子目录，根目录 README 为空且仓库保留模板文档，README 截图路径也与实际文件不一致。
+JINfan-1,dev-2026-03,https://github.com/JINfan-1/-3,89,2026-05-05T21:31:34Z,48,graded,程序已现场运行并成功导出 cleaned_retail.csv；主要扣分点是 summary 统计没有分别报告 Quantity 和 Price 无效行，且空 Customer ID 的统计口径未按实际清洗顺序计算。
+JINfan-1,dev-2026-04,https://github.com/JINfan-1/-4,90,2026-05-05T21:35:26Z,49,graded,依赖安装和无 Key 启动检查已现场验证；主要扣分点是请求中未保留多轮 messages，上下文聊天能力不足，真实 API 返回受当前评测环境代理依赖限制未能现场完成。
+liu070504,dev-2026-02,https://github.com/liu070504/task2.,69,2026-05-05T21:37:57Z,50,partial,"仓库可访问但 GET 列表渲染主流程有关键错误：代码把 res.json() 当数组使用，而课程 API 实际返回 {success,data} 对象，导致任务列表无法正常展示；同时项目结构和 README 文件名也不规范。"
+JINfan-1,dev-2026-05,https://github.com/JINfan-1/-5,94,2026-05-05T21:47:33Z,51,graded,协议实现与 live TCP 通信已现场验证可用；主要扣分点是 README 模板痕迹较重，且当前评测工具的 pytest 包装层未正确反映已提交 tests/test_protocol.py 的收集结果。
